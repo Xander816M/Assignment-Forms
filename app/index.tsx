@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { Field, Formik } from "formik";
+import { Formik } from "formik";
 import React from "react";
 import { Button, ScrollView, Text, TextInput, TouchableOpacity, View, StyleSheet } from "react-native";
 import * as Yup from "yup";
@@ -73,23 +73,17 @@ export default function Index() {
               )}
             </Formik>
 
-            <View
-            style={{
-              flexDirection:"row",
-              justifyContent:"space-between",
-              width:"50%",
-              marginBottom:600
-            }}
-
-            >
-              <Text>Don't have an account?</Text>
-              <TouchableOpacity
-              onPress={() => router.push("/signUp")}
-              >
-                <Text>Sign Up</Text>
-                
-              </TouchableOpacity>
+            <View style={{ marginTop: 20 }}>
+              <Button title="Go to Sign Up" onPress={() => router.push("/signUp")} />
             </View>
+            <View style={{ marginTop: 20 }}>
+              <Button
+                title="Employee"
+                onPress={() => router.push("/employee-form")}
+              />
+            </View>
+
+            
           </ScrollView>
 
           
@@ -127,6 +121,9 @@ const styles = StyleSheet.create({
     color: "red",
     fontSize: 12,
     marginTop: 4,
+  },
+  button: {
+    marginTop: 20,
   },
 });
 
