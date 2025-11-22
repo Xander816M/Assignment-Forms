@@ -73,6 +73,16 @@ export default function Index() {
               )}
             </Formik>
 
+            <View style={{ marginTop: 20 }}>
+              <Button title="Go to Sign Up" onPress={() => router.push("/signUp")} />
+            </View>
+            <View style={{ marginTop: 20 }}>
+              <Button
+                title="Employee"
+                onPress={() => router.push("/employee-form")}
+              />
+            </View>
+
             
           </ScrollView>
 
@@ -111,6 +121,9 @@ const styles = StyleSheet.create({
     color: "red",
     fontSize: 12,
     marginTop: 4,
+  },
+  button: {
+    marginTop: 20,
   },
 });
 
