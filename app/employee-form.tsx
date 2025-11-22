@@ -1,5 +1,4 @@
 import { Formik } from "formik";
-import React from "react";
 import { Button, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import * as Yup from "yup";
 
@@ -104,6 +103,14 @@ export default function EmployeeForm() {
             <View style={{ marginTop: 20 }}>
               <Button title="Submit" onPress={() => handleSubmit()} />
             </View>
+            {/*Sign in */}
+<View style={{ marginTop: 20 }}>
+  <Button title="Sign In" onPress={() => alert("Sign In pressed")} />
+</View>
+
+<View style={{ marginTop: 10 }}>
+  <Button title="Sign Up" onPress={() => alert("Sign Up pressed")} />
+</View> 
           </View>
         )}
       </Formik>
