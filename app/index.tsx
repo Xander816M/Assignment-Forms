@@ -29,7 +29,7 @@ export default function Index() {
     password: "",
     };
   return (
-    <View>
+
       <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.title}>Sign In</Text>
       
@@ -67,7 +67,7 @@ export default function Index() {
                   )}
       
                   <View style={{ marginTop: 20 }}>
-                    <Button title="Login"  onPress={() => router.push("/employee-form")} />
+                    <Button title="Login" />
                   </View>
                 </View>
               )}
@@ -87,7 +87,6 @@ export default function Index() {
           </ScrollView>
 
           
-    </View>
 
 
   );
