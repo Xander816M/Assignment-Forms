@@ -1,7 +1,7 @@
 import { Formik } from "formik";
-import React from "react";
 import { Button, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import * as Yup from "yup";
+import { router } from "expo-router";
 
 // types
 interface EmployeeFormValues {
@@ -104,6 +104,14 @@ export default function EmployeeForm() {
             <View style={{ marginTop: 20 }}>
               <Button title="Submit" onPress={() => handleSubmit()} />
             </View>
+            {/*Sign in */}
+<View style={{ marginTop: 20 }}>
+  <Button title="Sign In" onPress={() => router.push("/")} />
+</View>
+
+<View style={{ marginTop: 10 }}>
+  <Button title="Sign Up" onPress={() => router.push("/signUp")} />
+</View> 
           </View>
         )}
       </Formik>
