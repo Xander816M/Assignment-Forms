@@ -1,8 +1,10 @@
-import { router } from "expo-router";
+import { router, useRouter } from "expo-router";
 import { Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { Button, ScrollView, Text, TextInput, TouchableOpacity, View, StyleSheet } from "react-native";
 import * as Yup from "yup";
+import { auth } from "../library/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 
 // types
@@ -18,12 +20,41 @@ const EmployeeSchema = Yup.object({
 });
 
 
+interface SignInFormValues {
+  email: string;
+  password: string;
+}
 
 
+const signInSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+});
+
+  
 
 
 export default function Index() {
+  
+  const router = useRouter();
+  const [firebaseError, setFirebaseError] = useState<string | null>(null);
 
+  const handleLogin = async (values: SignInFormValues) => {
+    try {
+      setFirebaseError(null);
+      await signInWithEmailAndPassword(auth, values.email, values.password);
+      // Navigate to dashboard after successful sign-in
+      router.replace("/signedIn");
+    } catch (error: any) {
+      setFirebaseError(error.message || "Login Failed");
+      console.log("nopeman")
+    }
+  };
+  
     const initialValues: EmployeeFormValues = {
     email: "",
     password: "",
@@ -33,10 +64,10 @@ export default function Index() {
       <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.title}>Sign In</Text>
       
-            <Formik
+            <Formik<SignInFormValues>
               initialValues={initialValues}
-              validationSchema={EmployeeSchema}
-              onSubmit={(values) => alert(JSON.stringify(values, null, 2))}
+              validationSchema={signInSchema}
+              onSubmit={handleLogin}
             >
               {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
                 <View>
@@ -44,9 +75,11 @@ export default function Index() {
                   <Text style={styles.label}>Email</Text>
                   <TextInput
                     style={styles.input}
+                    placeholder="Email"
                     onChangeText={handleChange("email")}
                     onBlur={handleBlur("email")}
                     value={values.email}
+                    autoCapitalize="none"
                   />
                   {touched.email && errors.email && (
                     <Text style={styles.error}>{errors.email}</Text>
@@ -56,6 +89,7 @@ export default function Index() {
                   <Text style={styles.label}>Password</Text>
                   <TextInput
                     style={styles.input}
+                    placeholder="passord"
                     onChangeText={handleChange("password")}
                     onBlur={handleBlur("password")}
                     value={values.password}
@@ -65,10 +99,14 @@ export default function Index() {
                   {touched.password && errors.password && (
                     <Text style={styles.error}>{errors.password}</Text>
                   )}
+                  {firebaseError && <Text style={styles.error}>{firebaseError}</Text>}
       
-                  <View style={{ marginTop: 20 }}>
-                    <Button title="Login" />
-                  </View>
+                  <TouchableOpacity
+                  onPress={() => handleSubmit()}
+                  style={styles.submitButton}
+                  >
+                    <Text style={styles.submitButtonText}>Sign In</Text>
+                  </TouchableOpacity> 
                 </View>
               )}
             </Formik>
@@ -121,8 +159,16 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 4,
   },
-  button: {
-    marginTop: 20,
+  submitButton: {
+    marginTop:20,
+    paddingVertical:6,
+    backgroundColor:"#2196F3",
+    borderRadius:2
+  },
+  submitButtonText: {
+    fontSize:16,
+    textAlign:"center",
+    color:"#FFF"
   },
 });
 
