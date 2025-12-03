@@ -26,11 +26,11 @@ interface SignUpFormValues {
 const SignUpSchema = Yup.object().shape({
   firstName: Yup.string()
     .min(1, "First name can not be less than 3 characters")
-    .max(50, "First name can not exceed 50 characters")
+    .max(40, "First name can not exceed 50 characters")
     .required("Full name is required"),
   lastName: Yup.string()
     .min(1, "Last name can't be less than 3 characters")
-    .max(50, "Last Name can't be more then 20 characters")
+    .max(40, "Last Name can't be more then 20 characters")
     .required("Last name is required"),
   email: Yup.string().email("Invalid Email").required("Email is required"),
   password: Yup.string().min(6).required("Password is required"),
