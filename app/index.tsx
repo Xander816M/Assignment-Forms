@@ -1,4 +1,4 @@
-import { router, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { Button, ScrollView, Text, TextInput, TouchableOpacity, View, StyleSheet } from "react-native";
@@ -12,12 +12,6 @@ interface EmployeeFormValues {
   email: string;
   password: string;
 }
-
-// yup validation
-const EmployeeSchema = Yup.object({
-  email: Yup.string().email("Invalid Entry").required("Required"),
-  password: Yup.string().required("No password provided."),
-});
 
 
 interface SignInFormValues {
