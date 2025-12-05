@@ -59,7 +59,7 @@ const handleSignUp = async (values: SignUpFormValues): Promise<void> => {
     });
 
     alert("Account created successfully!");
-    router.push("/");
+    router.push("/signedIn");
 
   } catch (error: any) {
     alert(error.message);
